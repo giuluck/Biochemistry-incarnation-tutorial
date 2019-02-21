@@ -1,0 +1,21 @@
+incarnation: biochemistry
+
+# Link nodes that are closer than 5 distance units
+network-model:
+  type: ConnectWithinDistance
+  parameters: [5]
+  
+# In this section the nodes are described
+displacements:
+  # A list of "in" entries, where each entry defines a group of nodes
+  - in:
+      # Uses the class it.unibo.alchemist.loader.displacements.Point
+      type: Point
+      # Using a constructor taking as input a couple of integers
+      parameters: [0, 0]
+  - in:
+      type: Point
+      parameters: [0, 1]
+
+description: |
+  This simulation creates a static world with two nodes (biological cells) at the given points and with the given linking rule

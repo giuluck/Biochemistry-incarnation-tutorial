@@ -1,0 +1,45 @@
+incarnation: biochemistry
+
+network-model:
+  type: ConnectWithinDistance
+  parameters: [0.5]
+  
+displacements:
+  - in:
+      type: Grid
+      parameters: [-5, -5, 5, 5, 0.25, 0.25, 0.1, 0.1]
+    # In the content section, we configure the node molecules
+    contents:
+      - molecule: hello
+        # Concentration is the molecule value.
+        # In Biochemistry are accepted just numerical values.
+        concentration: 10
+      # The `in` key is used to restrict the range where a molecule is injected.
+      # If omitted, the injection will happen in every node. 
+      - in:
+          # Loads an instance of it.unibo.alchemist.loader.shapes.Rectangle
+          type: Rectangle
+          # A square starting from (-1, -1) with sides 2 distance units large
+          parameters: [-1, -1, 2, 2]
+        # This will be molecule name
+        molecule: token
+        concentration: 5
+      - in:
+          type: Rectangle
+          parameters: [-6, -6, 2, 2]
+        molecule: token
+        concentration: 2
+
+
+notes: |
+  Note that in the provided effect stack only the nodes containing "hello" are marked visible.
+  Try to modify the variable name, and you'll see all of them disappear (from the graphics, not from
+  the simulated environment).
+  Try to open the node content, and see how the concentration values got parsed
+  Also take a look to the effects, and see how it is possible to alter a color channel in order to obtain
+  a fancy coloring of your nodes.
+  
+  
+description: |
+   This simulation creates a set of cells displaced in a slightly perturbated grid,
+   some of them containing the molecules "hello" and some other the molecules "value"
