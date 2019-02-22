@@ -1,0 +1,73 @@
+incarnation: biochemistry
+
+network-model:
+  type: ConnectWithinDistance
+  parameters: [50]
+  
+# no overlap biochemistry environment
+environment:
+  type: BioRect2DEnvironmentNoOverlap
+
+displacements:
+  # en environment node with negative charge
+  - in: 
+      type: Point
+      parameters: [6, 0]
+    nodes:
+       type: EnvironmentNodeImpl
+       parameters: []
+    contents:
+       - molecule: electron
+         concentration: 1
+       - molecule: env
+         concentration: 1
+         
+  - in: 
+      type: Point
+      parameters: [-6, 0]
+    nodes:
+       type: EnvironmentNodeImpl
+       parameters: []
+    contents:
+       - molecule: proton
+         concentration: 1
+       - molecule: env
+         concentration: 1
+          
+  - in: 
+      type: Point
+      parameters: [5, 0]
+    nodes:
+       # node type is a Circular Deformable Cell with a max radius of 0.5 and a min radius of 0.2 (0.5 * 0.2)
+       type: CircularDeformableCellImpl
+       parameters: [0.5, 0.4]
+    contents:
+       - molecule: electron
+         concentration: 1
+    programs:
+      -
+        - time-distribution: 1
+          # polarization versor is set towards the proton gradient with chemotactic polarization (it works with neighbors only)
+          program: "[electron] --> [electron] + [ChemotacticPolarization(proton, up)]"
+        - time-distribution: 1
+          # cell moving for 10% of its radius
+          program: "[] --> [CellMove(true, 0.1)]"
+
+  - in: 
+      type: Point
+      parameters: [-5, 0]
+    nodes:
+       type: CircularDeformableCellImpl
+       parameters: [0.5, 0.4]
+    contents:
+       - molecule: proton
+         concentration: 1
+    programs:
+      -
+        - time-distribution: 1
+          program: "[proton] --> [proton] + [ChemotacticPolarization(electron, up)]"
+        - time-distribution: 1
+          program: "[] --> [CellMove(true, 0.1)]"
+        
+description: |
+  This simulation creates two deformable cells moving because of an electrical polarization that eventually collide

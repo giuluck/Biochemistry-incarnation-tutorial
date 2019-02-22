@@ -1,0 +1,33 @@
+incarnation: biochemistry
+
+network-model:
+  type: ConnectWithinDistance
+  parameters: [5]
+
+displacements:
+  - in:
+      type: Point
+      parameters: [-1, 0]
+    contents:
+      - molecule: A
+        concentration: 100
+      - molecule: C
+        concentration: 1000000
+    programs:
+      -
+        - time-distribution: 1
+          program: >
+            [91A] + [91B in neighbor] --> [90A] + [90B in neighbor] + [junction A-B]
+        - time-distribution: 1
+          program: >
+            [C] + [junction A-B] --> [C in neighbor] + [junction A-B]
+    
+  - in:
+      type: Point
+      parameters: [1, 0]
+    contents:
+      - molecule: B
+        concentration: 100
+        
+description: |
+  This simulation creates 10 junctions and programs them as gap junctions to swap the 'C' molecule from a cell to the other

@@ -1,0 +1,29 @@
+incarnation: biochemistry
+
+network-model:
+  type: ConnectWithinDistance
+  parameters: [5]
+  
+pools:
+  - pool: &swap
+      - time-distribution: 1
+        # swaps the molecule named "token" from the cell to the neighbor
+        program: "[token in neighbor] --> [token]"
+
+displacements:
+  - in:
+      type: Point
+      parameters: [-1, 0]
+    contents:
+      - molecule: token
+        concentration: 100
+    
+  - in:
+      type: Point
+      parameters: [1, 0]
+    # the node reactions
+    programs:
+      - *swap
+      
+description: |
+  This simulation swaps a molecule from a cell to the other and vice versa

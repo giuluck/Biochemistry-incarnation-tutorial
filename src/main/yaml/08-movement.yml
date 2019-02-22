@@ -1,0 +1,25 @@
+incarnation: biochemistry
+
+network-model:
+  type: ConnectWithinDistance
+  parameters: [5]
+  
+# basic biochemistry environment
+environment:
+  type: BioRect2DEnvironment
+
+displacements:
+  - in: 
+      type: Circle
+      parameters: [10, 0, 0, 1]
+    contents:
+      - molecule: ATP
+        concentration: 1000
+    programs:
+      -
+        - time-distribution: 1
+          program: >
+            [ATP] --> [ADP] + [P] + [BrownianMove(0.01)]
+        
+description: |
+  This simulation creates 10 cells and moves them using ATP
