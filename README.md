@@ -1,4 +1,4 @@
-# HOW-TO
+# HOW TO
 
 To run the desired example, launch `gradle -Psimulation=THESIMULATIONFILE`, where `THESIMULATIONFILE` must be the name of a valid Alchemist YAML file in `src/main/yaml`. For instance, to launch the first example, use this command:
 
