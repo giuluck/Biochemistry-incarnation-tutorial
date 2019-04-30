@@ -8,19 +8,19 @@ pools:
   - pool: &swap
       - time-distribution: 1
         # swaps the molecule named "token" from the cell to the neighbor
-        program: "[token in neighbor] --> [token]"
+        program: "[token] --> [token in neighbor]"
 
 displacements:
   - in:
       type: Point
       parameters: [-1, 0]
-    contents:
-      - molecule: token
-        concentration: 100
     
   - in:
       type: Point
       parameters: [1, 0]
+    contents:
+      - molecule: token
+        concentration: 100
     # the node reactions
     programs:
       - *swap
