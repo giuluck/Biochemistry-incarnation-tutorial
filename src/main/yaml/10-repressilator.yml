@@ -1,0 +1,60 @@
+incarnation: biochemistry
+
+seeds:
+  scenario: 0
+  simulation: 1
+
+displacements:
+  - in:
+      type: Point
+      parameters: [0, 0]
+
+    contents:
+      - molecule: gTetR
+        concentration: 1
+      - molecule: TetR
+        concentration: 1
+      - molecule: LacI
+        concentration: 1
+      - molecule: gLacI
+        concentration: 1
+      - molecule: AcI
+        concentration: 1
+      - molecule: gAcI
+        concentration: 1
+
+    programs:
+      -
+        - time-distribution: 0.01
+          program: "[gTetR + LacI] --> [gTetR_LacI]"
+        - time-distribution: 0.01
+          program: "[gTetR_LacI] --> [gTetR + LacI]"
+        - time-distribution: 10.0
+          program: "[gTetR_LacI] --> [gTetR_LacI + TetR]"
+        - time-distribution: 0.1
+          program: "[TetR] --> []"
+        - time-distribution: 0.01
+          program: "[gAcI + TetR] --> [gAcI_TetR]"
+        - time-distribution: 0.01
+          program: "[gAcI_TetR] --> [gAcI + TetR]"
+        - time-distribution: 10.0
+          program: "[gAcI_TetR] --> [gAcI_TetR + AcI]"
+        - time-distribution: 0.1
+          program: "[LacI] --> []"
+        - time-distribution: 0.01
+          program: "[gLacI + AcI] --> [gLacI_AcI]"
+        - time-distribution: 0.01
+          program: "[gLacI_AcI] --> [gLacI + AcI]"
+        - time-distribution: 10.0
+          program: "[gLacI_AcI] --> [gLacI_AcI + LacI]"
+        - time-distribution: 0.1
+          program: "[AcI] --> []"
+
+export:
+  - time
+  - molecule: TetR
+    aggregators: [mean]
+  - molecule: LacI
+    aggregators: [mean]
+  - molecule: AcI
+    aggregators: [mean]

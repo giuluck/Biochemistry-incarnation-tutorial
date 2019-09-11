@@ -1,0 +1,1 @@
+import matplotlib.pyplot as pltimport numpy as nptime, X, Y = np.loadtxt('export/11-brusselator.txt', unpack = True)plt.title('Brusselator')plt.xlabel('time')plt.ylabel('concentration')plt.plot(time, X, 'r', time, Y, 'g')plt.legend(['X', 'Y'])plt.show()

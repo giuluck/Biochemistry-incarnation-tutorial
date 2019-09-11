@@ -1,0 +1,46 @@
+incarnation: biochemistry
+
+variables:
+  rsc: &randomScenario
+    min: 0
+    max: 9
+    step: 1
+    default: 0
+  rsm: &randomSimulation
+    min: 0
+    max: 9
+    step: 1
+    default: 0
+
+seeds:
+  scenario: *randomScenario
+  simulation: *randomSimulation
+
+displacements:
+  - in:
+      type: Point
+      parameters: [0, 0]
+
+    contents:
+      - molecule: X
+        concentration: 1
+      - molecule: Y
+        concentration: 0
+
+    programs:
+      -
+        - time-distribution: 20
+          program: "[] --> [X]"
+        - time-distribution: 100
+          program: "[X] --> [Y]"
+        - time-distribution: 2
+          program: "[2X + Y] --> [3X]"
+        - time-distribution: 1
+          program: "[X] --> []"
+
+export:
+  - time
+  - molecule: X
+    aggregators: [mean]
+  - molecule: Y
+    aggregators: [mean]
